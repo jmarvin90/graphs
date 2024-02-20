@@ -53,3 +53,6 @@ def test_nodes_are_correct(my_graph: Graph) -> None:
 
 def test_graph_function_returns_correct_number(my_graph: Graph) -> None:
     assert my_graph.graph == 16912
+
+def test_print_graph(my_graph) -> None:
+    assert my_graph.__str__() == "0100\n0010\n0001\n0000\n"

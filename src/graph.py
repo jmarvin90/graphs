@@ -32,7 +32,7 @@ class Graph:
 
     @property
     def graph(self):
-        """Return the graph."""
+        """Return the decimal value representing the graph."""
         graph = 0
 
         for node in self.nodes.values():
@@ -40,6 +40,17 @@ class Graph:
                 graph |= self.__conn_bit(node, child)
 
         return graph
+
+    def __str__(self) -> str:
+        """Return a string representation of the adjacency matrix."""
+        binval = bin(self.graph)
+        strval = str(binval[2:]).rjust(self.size**2, "0")
+        output = ""
+
+        for row in range(0, self.size**2, self.size):
+            output += strval[row:row+self.size] + "\n"
+
+        return output
 
     def __add__(self, node: Node) -> Graph:
         """Add a node to the graph (e.g. graph + node)."""
