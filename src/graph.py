@@ -3,13 +3,6 @@ from __future__ import annotations
 from src.node import Node
 
 class Graph:
-    def __init__(self): 
-        self.__graph = 0
-
-    @property
-    def graph(self):
-        """Return the graph."""
-        return self.__graph
 
     @property
     def nodes(self) -> list:
@@ -22,7 +15,31 @@ class Graph:
     @property
     def size(self) -> int:
         """Get the size of the graph as number of nodes."""
-        return len(self.__nodes)
+        return len(self.nodes.keys())
+
+    @property
+    def node_index(self) -> dict:
+        """Create an dictionary of node:index number for nodes in the graph."""
+        return {node: _+1 for _, node in enumerate(self.nodes.values())}
+
+    def __conn_bit(self, node_1: Node, node_2: Node) -> int:
+        """Decimal value for bit representing connection between two nodes."""
+        from_ = (self.size - self.node_index[node_1]) + 1
+        to_ = (self.size - self.node_index[node_2]) + 1
+        base = self.size * from_
+        val = base - (self.size - to_)
+        return 2**(val -1)
+
+    @property
+    def graph(self):
+        """Return the graph."""
+        graph = 0
+
+        for node in self.nodes.values():
+            for child in node.children:
+                graph |= self.__conn_bit(node, child)
+
+        return graph
 
     def __add__(self, node: Node) -> Graph:
         """Add a node to the graph (e.g. graph + node)."""

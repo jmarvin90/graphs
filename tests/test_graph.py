@@ -12,16 +12,28 @@ def your_node() -> Node:
     return Node(name="your_node")
 
 @pytest.fixture
-def my_graph(my_node: Node, your_node: Node) -> Graph:    
+def our_node() -> Node:
+    return Node(name="our_node")
+
+@pytest.fixture
+def other_node() -> Node:
+    return Node(name="other_node")
+
+@pytest.fixture
+def my_graph(
+    my_node: Node, your_node: Node, our_node: Node, other_node: Node
+) -> Graph:    
     # Create an 'empty' graph
     my_graph = Graph()
 
     # Add our nodes to the graph
     my_graph += my_node
     my_graph += your_node
+    my_graph += our_node
+    my_graph += other_node
 
     # Connect our two nodes
-    my_node >> your_node
+    my_node >> your_node >> our_node >> other_node
 
     return my_graph
 
@@ -38,3 +50,6 @@ def test_nodes_are_correct(my_graph: Graph) -> None:
         my_graph.my_node in my_graph.your_node.parents and
         my_graph.your_node in my_graph.my_node.children
     )
+
+def test_graph_function_returns_correct_number(my_graph: Graph) -> None:
+    assert my_graph.graph == 16912
