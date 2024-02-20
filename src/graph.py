@@ -45,12 +45,12 @@ class Graph:
         """Return a string representation of the adjacency matrix."""
         binval = bin(self.graph)
         strval = str(binval[2:]).rjust(self.size**2, "0")
-        output = ""
+        output = [
+            strval[row:row+self.size] 
+            for row in range(0, self.size**2, self.size)
+        ]
 
-        for row in range(0, self.size**2, self.size):
-            output += strval[row:row+self.size] + "\n"
-
-        return output
+        return "\n".join(output)
 
     def __add__(self, node: Node) -> Graph:
         """Add a node to the graph (e.g. graph + node)."""
