@@ -73,10 +73,8 @@ def test_route_to(
 ) -> None:
 
     # Connect the nodes
-    my_node >> your_node >> our_node
-    my_node >> some_node >> this_node
-    my_node >> some_node >> that_node >> other_node
-
+    this_node << some_node << my_node >> your_node >> our_node
+    some_node >> that_node >> other_node
 
     # Get the route
     route = my_node.route_to(other_node)
