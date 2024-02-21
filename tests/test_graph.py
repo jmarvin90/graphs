@@ -32,7 +32,7 @@ def my_graph(
     my_graph += our_node
     my_graph += other_node
 
-    # Connect our two nodes
+    # Connect our nodes
     my_node >> your_node >> our_node >> other_node
 
     return my_graph
@@ -55,5 +55,4 @@ def test_graph_function_returns_correct_number(my_graph: Graph) -> None:
     assert my_graph.graph == 16912
 
 def test_print_graph(my_graph) -> None:
-    print(my_graph)
     assert my_graph.__str__() == "0100\n0010\n0001\n0000"
