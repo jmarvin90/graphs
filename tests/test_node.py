@@ -48,7 +48,9 @@ def test_l_and_r_shift(my_node: Node, your_node: Node, our_node: Node) -> None:
     my_node << your_node >> our_node
     assert (
         my_node in your_node.children and
-        our_node in your_node.children
+        our_node in your_node.children and
+        your_node in my_node.parents and
+        your_node in our_node.parents
     )
 
 def test_floordiv(my_node: Node, your_node: Node) -> None:
