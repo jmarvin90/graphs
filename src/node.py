@@ -75,10 +75,9 @@ class Node:
         end: Node, 
         direction: str, 
         path: Optional[List]=[], 
-        start: Optional[Node]=None,
-        prev: Optional[Node]=None
+        start: Optional[Node]=None
     ) -> list:
-        """Return all nodes connecting the instance to a relative."""
+        """Return all routes connecting start and end nodes."""
         if direction == "to":
             collection_to_search = self.children
         
