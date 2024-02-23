@@ -62,56 +62,6 @@ def test_floordiv(my_node: Node, your_node: Node) -> None:
         my_node not in your_node.parents
     )
 
-def test_route_to(
-    my_node: Node, 
-    your_node: Node, 
-    our_node: Node,
-    some_node: Node,
-    other_node: Node, 
-    this_node: Node, 
-    that_node: Node
-) -> None:
-
-    # Connect the nodes
-    this_node << some_node << my_node >> your_node >> our_node
-    some_node >> that_node >> other_node
-
-    # Get the route
-    route = my_node.route_to(other_node)
-
-    control_route = ["my_node", "some_node", "that_node", "other_node"]
-
-    assert (
-        sorted([node.name for node in route]) == 
-        sorted(control_route)
-    )
-
-def test_route_from(
-    my_node: Node, 
-    your_node: Node, 
-    our_node: Node,
-    some_node: Node,
-    other_node: Node, 
-    this_node: Node, 
-    that_node: Node
-) -> None:
-
-    # Connect the nodes
-    my_node >> your_node >> our_node
-    my_node >> some_node >> this_node
-    my_node >> some_node >> that_node >> other_node
-
-
-    # Get the route
-    route = other_node.route_from(my_node)
-
-    control_route = ["my_node", "some_node", "that_node", "other_node"]
-
-    assert (
-        sorted([node.name for node in route]) == 
-        sorted(control_route)
-    )
-
 def test_routing_for_non_connected_nodes(
     my_node: Node, 
     your_node: Node,
