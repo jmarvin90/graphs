@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Optional, List
 
 class Node:
     def __init__(self, name):
@@ -69,25 +70,41 @@ class Node:
 
         return self.__parents
 
-    def __route(self, node: Node, direction: str) -> list:
+    def __route(
+        self, 
+        end: Node, 
+        direction: str, 
+        path: Optional[List]=[], 
+        start: Optional[Node]=None,
+        prev: Optional[Node]=None
+    ) -> list:
         """Return all nodes connecting the instance to a relative."""
         if direction == "to":
             collection_to_search = self.children
         
         if direction == "from":
             collection_to_search = self.parents
-    
-        if self == node:
-            return [self]
 
-        route = []
+        if start is None:
+            start = self
 
-        for connected_node in collection_to_search:
-            _ = connected_node.__route(node, direction)
-            if _:
-                route.extend([*_, self])
+        path = path + [start]
 
-        return route
+        if start == end:
+            return [path]
+
+        paths = []
+
+        for node in collection_to_search:
+            if node not in path:
+                newpaths = node.__route(
+                    start=node, end=end, direction=direction, path=path
+                )
+
+                for newpath in newpaths:
+                    paths.append(newpath)
+
+        return paths 
 
     def route_to(self, node: Node) -> list:
         """Return nodes linking source and target via parental connections."""
