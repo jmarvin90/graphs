@@ -1,3 +1,5 @@
+from typing import NoReturn
+
 from src.node import Node
 
 import pytest
@@ -30,21 +32,21 @@ def this_node() -> Node:
 def that_node() -> Node:
     return Node(name="that_node")
 
-def test_rshift(my_node: Node, your_node: Node) -> None:
+def test_rshift(my_node: Node, your_node: Node) -> NoReturn:
     my_node >> your_node
     assert (
         your_node in my_node.children and
         my_node in your_node.parents
     )
 
-def test_lshift(my_node: Node, your_node: Node) -> None:
+def test_lshift(my_node: Node, your_node: Node) -> NoReturn:
     my_node << your_node
     assert (
         my_node in your_node.children and
         your_node in my_node.parents
     )
 
-def test_l_and_r_shift(my_node: Node, your_node: Node, our_node: Node) -> None:
+def test_l_and_r_shift(my_node: Node, your_node: Node, our_node: Node) -> NoReturn:
     my_node << your_node >> our_node
     assert (
         my_node in your_node.children and
@@ -53,7 +55,7 @@ def test_l_and_r_shift(my_node: Node, your_node: Node, our_node: Node) -> None:
         your_node in our_node.parents
     )
 
-def test_floordiv(my_node: Node, your_node: Node) -> None:
+def test_floordiv(my_node: Node, your_node: Node) -> NoReturn:
     my_node >> your_node
     connection_was_made = my_node in your_node.parents
     my_node // your_node
@@ -66,7 +68,7 @@ def test_routing_for_non_connected_nodes(
     my_node: Node, 
     your_node: Node,
     our_node: Node
-) -> None:
+) -> NoReturn:
     my_node >> your_node
     my_node >> our_node
 
