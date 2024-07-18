@@ -5,7 +5,7 @@ from src.node import Node
 class Graph:
 
     @property
-    def nodes(self) -> list:
+    def nodes(self) -> dict:
         """Return a dictionary of all nodes as name:node."""
         return {
             key: value for key, value in self.__dict__.items()
